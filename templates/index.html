@@ -136,7 +136,7 @@ button.small:hover { color: #fff; }
   font-size: 13px;
   padding: 10px;
   border-radius: 6px;
-  height: 200px;
+  height: 220px;
   overflow-y: auto;
   white-space: pre-wrap;
 }
@@ -194,10 +194,11 @@ button.export:hover { background: #1e40af; }
 /* 文本内容 */
 p { text-indent: 2em; line-height: 1.7; }
 
-hr {
+/* 表格分页分隔线 */
+#tables hr {
   border: none;
-  border-top: 1px solid #e5e7eb;
-  margin: 15px 0;
+  border-top: 1px dashed #e5e7eb;
+  margin: 12px 0;
 }
 </style>
 </head>
@@ -271,9 +272,8 @@ let currentTextPage = 1;
 const textPerPage = 10;
 let currentLinkPage = 1;
 const linksPerPage = 10;
-
 let currentTablePage = 1;
-const tablesPerPage = 1;  // 每页显示1个表格，可改为2/3
+const tablesPerPage = 1;
 
 function showTextPage(page) {
     const start = (page - 1) * textPerPage;
@@ -323,7 +323,7 @@ function showTablePage(page, indexInHistory=null) {
         });
         html += `</table>`;
         if (indexInHistory !== null) {
-            html += `<button class="small" onclick="downloadTableCSV(${indexInHistory}, ${idxDisplay-1})">💾 导出表格 ${idxDisplay}</button>`;
+            html += `<button class="export" onclick="downloadTableCSV(${indexInHistory}, ${idxDisplay-1})">💾 导出表格 ${idxDisplay}</button>`;
         }
         return html;
     }).join("<hr>");
@@ -343,6 +343,10 @@ document.getElementById('next-table').onclick = () => { if(currentTablePage*tabl
 function startCrawl(url = null) {
     if (!url) url = document.getElementById("url").value.trim();
     if (!url) return alert("请输入 URL！");
+
+    const btn = document.getElementById("start");
+    btn.disabled = true;
+    btn.innerText = "正在爬取...";
 
     document.getElementById("logs").innerText = "> 已启动爬取任务...\n";
     document.getElementById("content").innerHTML = "";
@@ -368,6 +372,8 @@ function startCrawl(url = null) {
             reader.read().then(({done, value}) => {
                 if (done) {
                     document.getElementById("logs").innerText += "\n✅ 爬取完成。\n";
+                    btn.disabled = false;
+                    btn.innerText = "开始爬取";
                     loadHistory();
                     return;
                 }
@@ -376,7 +382,12 @@ function startCrawl(url = null) {
                     if (line.startsWith("data: ")) {
                         try {
                             const msg = JSON.parse(line.replace("data: ", ""));
-                            if (msg.log) document.getElementById("logs").innerText += msg.log + "\n";
+                            // 自动滚动日志到底部
+                            if (msg.log) {
+                                const logs = document.getElementById("logs");
+                                logs.innerText += msg.log + "\n";
+                                logs.scrollTop = logs.scrollHeight;
+                            }
                             if (msg.result) {
                                 document.getElementById("title").innerText = msg.result.title;
                                 paragraphs = msg.result.paragraphs || [];
@@ -393,7 +404,7 @@ function startCrawl(url = null) {
                                     showLinkPage(1);
                                 }
                                 if (allTables.length > 0) {
-                                    showTablePage(1); // 表格分页显示
+                                    showTablePage(1);
                                 }
                             }
                         } catch(e){}
@@ -431,6 +442,8 @@ async function loadHistory(query="") {
         </div>`).join('');
 }
 async function loadHistoryItem(idx) {
+    document.getElementById("content").innerText = "加载历史中...";
+    document.getElementById("tables").innerText = "加载中...";
     const res = await fetch(`/history/${idx}`);
     const r = await res.json();
     document.getElementById("title").innerText = r.title;

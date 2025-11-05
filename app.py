@@ -15,7 +15,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 app = Flask(__name__)
 
-# 本地历史记录文件
 HISTORY_FILE = "history.json"
 
 
@@ -23,7 +22,6 @@ HISTORY_FILE = "history.json"
 # 工具函数：加载与保存历史
 # ----------------------------------------------------
 def load_history():
-    """读取历史记录"""
     if not os.path.exists(HISTORY_FILE):
         return []
     with open(HISTORY_FILE, "r", encoding="utf-8") as f:
@@ -31,15 +29,13 @@ def load_history():
 
 
 def save_history(entry):
-    """保存新的爬取记录"""
     data = load_history()
-    # 若历史中已有相同URL，则覆盖
     for item in data:
         if item["url"] == entry["url"]:
             item.update(entry)
             break
     else:
-        data.insert(0, entry)  # 最新在最前
+        data.insert(0, entry)
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -55,58 +51,83 @@ def delete_history(index):
 
 
 # ---------------------------------------------------
-# Selenium 模拟加载
+# Selenium 模拟加载（支持多表格点击）
 # ---------------------------------------------------
-def fetch_with_selenium(url, yield_log, retry_no_headless=False):
-    """使用 Selenium 模拟打开网页"""
+def fetch_with_selenium_multi(url, yield_log):
+    """使用 Selenium 打开网页并点击所有数据表按钮，提取所有表格 HTML"""
     try:
         chrome_options = Options()
-        if not retry_no_headless:
-            chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("window-size=1920,1080")
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        chrome_options.add_experimental_option('useAutomationExtension', False)
+        chrome_options.add_experimental_option("useAutomationExtension", False)
         chrome_options.add_argument(
             "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/128.0.0.0 Safari/537.36"
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
         )
 
         driver = webdriver.Chrome(options=chrome_options)
-        driver.set_page_load_timeout(40)
-
-        mode = "🔒 取消无界面模式重新尝试加载" if retry_no_headless else "🚀 启动浏览器模式加载网页"
-        yield_log(mode)
+        driver.set_page_load_timeout(50)
+        yield_log("🚀 启动浏览器加载网页中...")
         driver.get(url)
+        time.sleep(4)
 
-        # 等待正文加载
-        try:
-            WebDriverWait(driver, 15).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, "article, .blog-content-box, #content_views, .article-content"))
-            )
-            yield_log("✅ 检测到内容加载。")
-        except Exception:
-            yield_log("⚠️ 未检测到特定内容区域，继续...")
-
-        # 向下滚动以触发懒加载
+        # ↓ 模拟滚动，确保懒加载元素出现
         last_height = driver.execute_script("return document.body.scrollHeight")
-        for i in range(5):
+        for _ in range(3):
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(2)
             new_height = driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
                 break
             last_height = new_height
-            yield_log(f"↩️ 第 {i+1} 次滚动完成")
 
-        html = driver.page_source
+        # 查找所有按钮
+        buttons = driver.find_elements(
+            By.XPATH,
+            "//a[contains(text(),'数据表')]"
+            " | //button[contains(text(),'查看')]"
+            " | //button[contains(text(),'表')]"
+        )
+        yield_log(f"🔍 找到 {len(buttons)} 个可能可点击的表格按钮。")
+
+        # 如果一个按钮都没找到，只返回整个页面源代码
+        if not buttons:
+            html = driver.page_source
+            driver.quit()
+            yield_log("⚠️ 未检测到表格按钮，直接返回页面源。")
+            return html
+
+        full_html = ""
+        for i, btn in enumerate(buttons):
+            try:
+                driver.execute_script("arguments[0].scrollIntoView();", btn)
+                time.sleep(1)
+                btn.click()
+                yield_log(f"✅ 点击第 {i+1}/{len(buttons)} 个按钮，等待表格加载...")
+
+                WebDriverWait(driver, 15).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "table"))
+                )
+                time.sleep(1)
+                html_part = driver.page_source
+                full_html += "\n<!-- 表格分隔符 -->\n" + html_part
+                # 尝试关闭弹窗
+                try:
+                    driver.find_element(By.CSS_SELECTOR, "body").click()
+                except Exception:
+                    pass
+                time.sleep(1)
+            except Exception as e:
+                yield_log(f"⚠️ 第 {i+1} 个按钮点击出错：{e}")
+
         driver.quit()
-        yield_log("✅ 页面加载完毕。")
-        return html
+        yield_log("📊 所有弹窗采集完毕。")
+        return full_html
 
     except Exception as e:
         yield_log(f"❌ Selenium 出错: {e}")
@@ -114,14 +135,16 @@ def fetch_with_selenium(url, yield_log, retry_no_headless=False):
 
 
 # ---------------------------------------------------
-# Flask 主路由
+# Flask 主页面
 # ---------------------------------------------------
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
-# -------------------- 核心爬取 ---------------------
+# ---------------------------------------------------
+# 核心爬取接口
+# ---------------------------------------------------
 @app.route('/stream', methods=['POST'])
 def stream():
     data = request.get_json()
@@ -137,6 +160,7 @@ def stream():
 
         try:
             yield from send_log(f"开始爬取 {url} ...")
+
             headers = {
                 "User-Agent": (
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -146,33 +170,40 @@ def stream():
             }
 
             html = None
-            yield from send_log("🌍 使用requests获取中...")
-            try:
-                resp = requests.get(url, headers=headers, timeout=10)
-                if resp.status_code in [403, 520, 521, 522, 523, 524]:
-                    yield from send_log(f"⚠️ 状态码 {resp.status_code}，切换到浏览器方式。")
-                    html = fetch_with_selenium(url, lambda m: (yield from send_log(m)))
-                else:
-                    html = resp.text
-                    yield from send_log("✅ requests成功。")
-            except Exception as e:
-                yield from send_log(f"⚠️ requests 失败: {e}")
-                html = fetch_with_selenium(url, lambda m: (yield from send_log(m)))
+
+            # ---------------- 深圳开放数据 ----------------
+            if "opendata.sz.gov.cn" in url:
+                yield from send_log("🏙️ 检测到深圳开放数据平台，启用多表格采集模式。")
+                html = fetch_with_selenium_multi(url, lambda m: (yield from send_log(m)))
+
+            # ---------------- 常规网站 ----------------
+            else:
+                yield from send_log("🌍 尝试requests请求...")
+                try:
+                    resp = requests.get(url, headers=headers, timeout=10)
+                    if resp.status_code >= 400:
+                        yield from send_log(f"⚠️ 状态码 {resp.status_code}，切换 Selenium。")
+                        html = fetch_with_selenium_multi(url, lambda m: (yield from send_log(m)))
+                    else:
+                        html = resp.text
+                        yield from send_log("✅ requests 请求成功。")
+                except Exception as e:
+                    yield from send_log(f"⚠️ requests 失败：{e}")
+                    html = fetch_with_selenium_multi(url, lambda m: (yield from send_log(m)))
 
             if not html:
-                yield f"data: {json.dumps({'error': '❌ 获取网页失败'})}\n\n"
+                yield f"data: {json.dumps({'error': '❌ 未能获取网页'})}\n\n"
                 return
 
-            # ---- 解析HTML ----
+            # ---------------- HTML解析 ----------------
             soup = BeautifulSoup(html, "html.parser")
             title = soup.title.string.strip() if soup.title else "无标题"
             paragraphs = [p.get_text(strip=True) for p in soup.find_all('p') if p.get_text(strip=True)]
             links = [a['href'] for a in soup.find_all('a', href=True)]
 
-            # ---- 新增：表格提取 ----
+            # ---------------- 表格提取 ----------------
             tables_data = []
-            tables = soup.find_all("table")
-            for t in tables:
+            for t in soup.find_all("table"):
                 headers = [th.get_text(strip=True) for th in t.find_all("th")]
                 rows = []
                 for tr in t.find_all("tr"):
@@ -182,27 +213,6 @@ def stream():
                 if headers or rows:
                     tables_data.append({"headers": headers, "rows": rows})
 
-            # ---- 若检测安全验证则重试 ----
-            if "安全验证" in title or len(paragraphs) < 5:
-                yield from send_log("⚠️ 检测安全验证页面，重新尝试(关闭无界面)")
-                html_retry = fetch_with_selenium(url, lambda m: (yield from send_log(m)), retry_no_headless=True)
-                if html_retry:
-                    soup = BeautifulSoup(html_retry, "html.parser")
-                    title = soup.title.string.strip() if soup.title else title
-                    paragraphs = [p.get_text(strip=True) for p in soup.find_all('p') if p.get_text(strip=True)]
-                    links = [a['href'] for a in soup.find_all('a', href=True)]
-                    tables_data = []
-                    tables = soup.find_all("table")
-                    for t in tables:
-                        headers = [th.get_text(strip=True) for th in t.find_all("th")]
-                        rows = []
-                        for tr in t.find_all("tr"):
-                            cells = [td.get_text(strip=True) for td in tr.find_all("td")]
-                            if cells:
-                                rows.append(cells)
-                        if headers or rows:
-                            tables_data.append({"headers": headers, "rows": rows})
-
             paragraphs = list(dict.fromkeys(paragraphs))[:200]
             links = list(dict.fromkeys(links))[:200]
 
@@ -211,13 +221,14 @@ def stream():
                 "title": title,
                 "paragraphs": paragraphs,
                 "links": links,
-                "tables": tables_data,  # ✅ 新增字段
+                "tables": tables_data,
                 "time": time.strftime("%Y-%m-%d %H:%M:%S")
             }
 
-            # 保存历史记录
             save_history(result)
-            yield from send_log(f"✅ 获取成功，共 {len(paragraphs)} 段文字，{len(links)} 个链接，{len(tables_data)} 个表格，已保存到历史记录。")
+            yield from send_log(
+                f"✅ 完成：提取 {len(paragraphs)} 段文字，{len(links)} 个链接，{len(tables_data)} 个表格"
+            )
 
             yield f"data: {json.dumps({'result': result})}\n\n"
 
@@ -227,17 +238,16 @@ def stream():
     return Response(generate(), mimetype="text/event-stream")
 
 
-# -------------------- 历史接口 ---------------------
+# ---------------------------------------------------
+# 历史与导出接口
+# ---------------------------------------------------
 @app.route("/history", methods=["GET"])
 def history_list():
-    """获取所有历史记录"""
-    data = load_history()
-    return jsonify(data)
+    return jsonify(load_history())
 
 
 @app.route("/history/<int:index>", methods=["GET"])
 def get_history_item(index):
-    """获取单条历史"""
     data = load_history()
     if 0 <= index < len(data):
         return jsonify(data[index])
@@ -246,14 +256,12 @@ def get_history_item(index):
 
 @app.route("/history/<int:index>", methods=["DELETE"])
 def delete_history_item(index):
-    """删除指定历史"""
     ok = delete_history(index)
     return jsonify({"ok": ok})
 
 
 @app.route("/history/export/<int:index>", methods=["GET"])
 def export_history_item(index):
-    """导出历史为单独JSON文件"""
     data = load_history()
     if 0 <= index < len(data):
         filename = f"export_{index}.json"
@@ -263,10 +271,8 @@ def export_history_item(index):
     return jsonify({"error": "未找到"}), 404
 
 
-# -------------------- 新增：导出表格为CSV ---------------------
 @app.route("/history/export_table/<int:index>/<int:table_idx>", methods=["GET"])
 def export_table_csv(index, table_idx):
-    """导出某条历史中的某个表格为CSV"""
     data = load_history()
     if 0 <= index < len(data):
         item = data[index]
@@ -279,7 +285,6 @@ def export_table_csv(index, table_idx):
                 writer.writerow(table["headers"])
             writer.writerows(table["rows"])
             csv_file.seek(0)
-
             filename = f"table_{index}_{table_idx}.csv"
             return Response(
                 csv_file.getvalue(),
@@ -289,7 +294,9 @@ def export_table_csv(index, table_idx):
     return jsonify({"error": "未找到表格"}), 404
 
 
-# -------------------- 启动 ---------------------
+# ---------------------------------------------------
+# 启动入口
+# ---------------------------------------------------
 if __name__ == '__main__':
-    print("🚀 Flask + 表格增强版爬虫启动：http://127.0.0.1:5000")
+    print("🚀 Flask + 深圳开放数据多表格增强版启动：http://127.0.0.1:5000")
     app.run(debug=True, threaded=True)
