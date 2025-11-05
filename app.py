@@ -4,6 +4,8 @@ import json
 import requests
 import time
 import os
+import csv
+from io import StringIO
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -167,6 +169,20 @@ def stream():
             paragraphs = [p.get_text(strip=True) for p in soup.find_all('p') if p.get_text(strip=True)]
             links = [a['href'] for a in soup.find_all('a', href=True)]
 
+            # ---- 新增：表格提取 ----
+            tables_data = []
+            tables = soup.find_all("table")
+            for t in tables:
+                headers = [th.get_text(strip=True) for th in t.find_all("th")]
+                rows = []
+                for tr in t.find_all("tr"):
+                    cells = [td.get_text(strip=True) for td in tr.find_all("td")]
+                    if cells:
+                        rows.append(cells)
+                if headers or rows:
+                    tables_data.append({"headers": headers, "rows": rows})
+
+            # ---- 若检测安全验证则重试 ----
             if "安全验证" in title or len(paragraphs) < 5:
                 yield from send_log("⚠️ 检测安全验证页面，重新尝试(关闭无界面)")
                 html_retry = fetch_with_selenium(url, lambda m: (yield from send_log(m)), retry_no_headless=True)
@@ -175,8 +191,19 @@ def stream():
                     title = soup.title.string.strip() if soup.title else title
                     paragraphs = [p.get_text(strip=True) for p in soup.find_all('p') if p.get_text(strip=True)]
                     links = [a['href'] for a in soup.find_all('a', href=True)]
+                    tables_data = []
+                    tables = soup.find_all("table")
+                    for t in tables:
+                        headers = [th.get_text(strip=True) for th in t.find_all("th")]
+                        rows = []
+                        for tr in t.find_all("tr"):
+                            cells = [td.get_text(strip=True) for td in tr.find_all("td")]
+                            if cells:
+                                rows.append(cells)
+                        if headers or rows:
+                            tables_data.append({"headers": headers, "rows": rows})
 
-            paragraphs = list(dict.fromkeys(paragraphs))[:120]
+            paragraphs = list(dict.fromkeys(paragraphs))[:200]
             links = list(dict.fromkeys(links))[:200]
 
             result = {
@@ -184,12 +211,13 @@ def stream():
                 "title": title,
                 "paragraphs": paragraphs,
                 "links": links,
+                "tables": tables_data,  # ✅ 新增字段
                 "time": time.strftime("%Y-%m-%d %H:%M:%S")
             }
 
             # 保存历史记录
             save_history(result)
-            yield from send_log(f"✅ 获取成功，共 {len(paragraphs)} 段文字，{len(links)} 个链接，已保存到历史记录。")
+            yield from send_log(f"✅ 获取成功，共 {len(paragraphs)} 段文字，{len(links)} 个链接，{len(tables_data)} 个表格，已保存到历史记录。")
 
             yield f"data: {json.dumps({'result': result})}\n\n"
 
@@ -235,6 +263,33 @@ def export_history_item(index):
     return jsonify({"error": "未找到"}), 404
 
 
+# -------------------- 新增：导出表格为CSV ---------------------
+@app.route("/history/export_table/<int:index>/<int:table_idx>", methods=["GET"])
+def export_table_csv(index, table_idx):
+    """导出某条历史中的某个表格为CSV"""
+    data = load_history()
+    if 0 <= index < len(data):
+        item = data[index]
+        tables = item.get("tables", [])
+        if 0 <= table_idx < len(tables):
+            table = tables[table_idx]
+            csv_file = StringIO()
+            writer = csv.writer(csv_file)
+            if table["headers"]:
+                writer.writerow(table["headers"])
+            writer.writerows(table["rows"])
+            csv_file.seek(0)
+
+            filename = f"table_{index}_{table_idx}.csv"
+            return Response(
+                csv_file.getvalue(),
+                mimetype="text/csv",
+                headers={"Content-Disposition": f"attachment;filename={filename}"}
+            )
+    return jsonify({"error": "未找到表格"}), 404
+
+
+# -------------------- 启动 ---------------------
 if __name__ == '__main__':
-    print("🚀 Flask + 历史增强版爬虫启动：http://127.0.0.1:5000")
+    print("🚀 Flask + 表格增强版爬虫启动：http://127.0.0.1:5000")
     app.run(debug=True, threaded=True)

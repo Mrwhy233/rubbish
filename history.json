@@ -1,5 +1,500 @@
 [
   {
+    "url": "https://opendata.sz.gov.cn/data/catalog/toDataCatalog",
+    "title": "深圳市政府数据开放平台",
+    "paragraphs": [
+      "个人注册机构注册",
+      "搜索字段搜索",
+      "目录数",
+      "主办单位：深圳市政务服务和数据管理局运维单位：深圳市大数据资源管理中心",
+      "联系邮箱：opendata@sz.gov.cn",
+      "网站标识码：4403000084备案序号：粤ICP备11069154号-30粤公网安备 44030402001167号"
+    ],
+    "links": [
+      "/",
+      "http://www.sz.gov.cn/cn/",
+      "javascript:void(0);",
+      "/data/catalog/toDataCatalog",
+      "/data/dataSet/toDataSet",
+      "/data/api/toApi",
+      "/data/dataMap/toMap",
+      "/application/application/showApplication",
+      "/application/develop/toDevelopperCenter",
+      "/maintenance/openCount/toDataFigure",
+      "/maintenance/openCount/toGlobalMap",
+      "/maintenance/hotData/toHotData",
+      "/article/article/toArticleList/digital",
+      "/article/article/toArticleList/policy",
+      "/interaction/question/toQAA",
+      "/interaction/publicDataDemnd/toPublicDataDemnd",
+      "/interaction/survey/toSurvey",
+      "/interaction/demand/toDemand",
+      "/interaction/suggest/toSuggest",
+      "/interaction/rightAppeal/toRightAppeal",
+      "/interaction/dataApply/toGrantApplyPublic",
+      "/interaction/suggest/toEmailSuggest",
+      "/interaction/correction/toCorrection",
+      "/interaction/feedback/toFeedbackStat",
+      "/maintenance/authentication/toRegister",
+      "javascript:void(0)",
+      "/maintenance/personal/toPersonal",
+      "#",
+      "javascript:;",
+      "https://tyrz.gd.gov.cn/tif/sso/connect/page/oauth2/authorize?redirect_uri=https://opendata.sz.gov.cn/intf/auth/callback&client_id=gdrz_szszfsjkfpt&service=initService&scope=all&response_type=code",
+      "/maintenance/authentication/toRegister?type=person",
+      "/maintenance/authentication/toRegister?type=company",
+      "javascript:downLoadCatalog()",
+      "/maintenance/forward/toYearWork",
+      "http://www.gd.gov.cn/xxts/",
+      "/maintenance/forward/toFriendlyLink",
+      "/maintenance/forward/toAboutUs",
+      "/maintenance/forward/toWebsiteMap",
+      "/static/opendata1.0/doc/userbook.pdf",
+      "/maintenance/forward/toTermOfService",
+      "javascript:wwzfzc();",
+      "javascript:DZJG();",
+      "javascript:BAXH();",
+      "javascript:YGAWB()"
+    ],
+    "tables": [
+      {
+        "headers": [],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "登 录"
+          ],
+          [
+            ""
+          ],
+          [
+            "手机验证码登录广东省统一认证平台登录忘记密码"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      },
+      {
+        "headers": [],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "获取验证码60s"
+          ],
+          [
+            ""
+          ],
+          [
+            "登 录"
+          ],
+          [
+            ""
+          ],
+          [
+            "用户名/密码登录广东省统一认证平台登录"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      },
+      {
+        "headers": [],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "获取验证码60s"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "重置密码"
+          ],
+          [
+            ""
+          ],
+          [
+            "用户名/密码登录广东省统一认证平台登录通过邮箱找回密码"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      },
+      {
+        "headers": [],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "获取验证码60s"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "重置密码"
+          ],
+          [
+            ""
+          ],
+          [
+            "用户名/密码登录广东省统一认证平台登录通过手机找回密码"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      },
+      {
+        "headers": [],
+        "rows": [
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ],
+          [
+            "修改密码"
+          ],
+          [
+            ""
+          ],
+          [
+            ""
+          ]
+        ]
+      },
+      {
+        "headers": [],
+        "rows": [
+          [
+            "标识符",
+            "",
+            "名称",
+            ""
+          ],
+          [
+            "摘要",
+            ""
+          ],
+          [
+            "关 键 字",
+            "",
+            "数据领域",
+            ""
+          ],
+          [
+            "主题分类",
+            "",
+            "行业分类",
+            "",
+            "服务分类",
+            ""
+          ],
+          [
+            "开放方式",
+            "",
+            "更新频率",
+            "",
+            "上架日期",
+            ""
+          ],
+          [
+            "更新日期",
+            "",
+            "资源格式",
+            "",
+            "数据提供方",
+            ""
+          ],
+          [
+            "数据维护方",
+            "",
+            "资源状态",
+            "",
+            "联系电话",
+            ""
+          ],
+          [
+            "文件大小",
+            "",
+            "文件数量",
+            "",
+            "联系邮箱",
+            ""
+          ],
+          [
+            "数据量",
+            "",
+            "下载量",
+            "",
+            "浏览量",
+            ""
+          ]
+        ]
+      }
+    ],
+    "time": "2025-11-05 14:46:48"
+  },
+  {
+    "url": "https://pianfan.github.io/d2l_preliminaries/",
+    "title": "《动手学深度学习（第二版）》学习笔记之 2. 预备知识 – Pianfan's blog",
+    "paragraphs": [
+      "翩帆的个人技术博客",
+      "Copyright (c) 2024-2025 Pianfan",
+      "要学习深度学习，首先需要先掌握一些基本技能。如数据处理、线性代数、微积分和概率。",
+      "张量（tensor）：由数值组成的多维数组。单轴张量对应数学中的向量（vector）；双轴张量对应数学中的矩阵（matrix）",
+      "张量类：PyTorch 中为Tensor，支持 GPU 加速计算和自动微分，适用于深度学习",
+      "张量的元素（element）：张量中的每个值",
+      "张量的形状（shape）：张量沿每个轴的长度，可通过shape属性访问",
+      "张量的大小（size）：张量中元素的总数（形状各元素的乘积），PyTorch 中通过numel()方法获取",
+      "reshape函数：改变张量形状而不改变元素数量和值，可通过-1自动计算某一维度",
+      "张量初始化方式：",
+      "按元素（elementwise）运算：对张量每个元素应用标量运算，适用于相同形状的张量。常见算术运算符（+、-、*、/、**）及指数函数torch.exp()均支持按元素运算",
+      "连结（concatenate）：将多个张量沿指定轴拼接为更大张量",
+      "逻辑运算符：构建二元张量，如X == Y会生成一个新张量，元素为 1（相等）或 0（不等）",
+      "张量求和：对所有元素求和得到单元素张量",
+      "广播机制（broadcasting mechanism）处理不同形状张量的按元素运算，步骤为：",
+      "通常沿长度为 1 的轴广播",
+      "通过索引访问元素：首元素索引为 0，尾元素索引为 -1；可通过范围指定选取元素（如X[1:3]选取第二和第三个元素），也可指定索引修改元素值",
+      "避免不必要的内存分配，可使用切片或复合赋值运算符进行原地更新",
+      "张量与 NumPy 数组转换：X.numpy()（张量转 NumPy 数组）、torch.tensor(A)（NumPy 数组转张量），转换后共享内存",
+      "大小为 1 的张量转 Python 标量：使用item()函数或强制类型转换（如float(a)、int(a)）",
+      "为了能用深度学习解决现实世界的问题，我们常从预处理原始数据开始，而非直接使用已准备好的张量格式数据",
+      "可通过 pandas 的read_csv函数加载 CSV 格式的原始数据集",
+      "处理缺失数据的典型方法有插值法（用替代值弥补）和删除法（忽略缺失值）",
+      "对于数值型缺失值，可采用插值法，如用所在列的均值替换",
+      "对于类别型或离散型缺失值，可将“NaN”视为一个类别，通过pd.get_dummies进行独热编码转换",
+      "当数据均为数值类型时，可转换为张量格式，以便利用张量相关功能进行后续处理",
+      "本节介绍线性代数中的基本数学对象、算术和运算，以下用数学符号和 PyTorch 代码实现表示",
+      "标量（scalar）：仅包含一个数值，可用只有一个元素的张量表示",
+      "标量变量（variable）：表示未知的标量值，由普通小写字母表示（例如，𝑥、𝑦、𝑧）",
+      "ℝ表示所有实值标量的集合，𝑥∈ℝ表示𝑥是实值标量",
+      "向量：标量值组成的列表，元素（分量）为标量，可用一维张量表示，数学中记为粗体小写符号（例如，𝐱、𝐲、𝐳）",
+      "元素引用：通过下标引用，如第𝑖个元素表示为𝑥𝑖（标量，不加粗）。默认列向量，数学表示为：",
+      "维度：向量的长度，𝑛维向量𝐱可表示为𝐱∈ℝ𝑛",
+      "长度访问：len(x)（x为向量张量）",
+      "形状：张量沿各轴的长度，一维张量形状为单元素元组，如x.shape（x为向量张量）",
+      "矩阵：二维数组，数学中记为粗体大写字母（例如，𝐗、𝐘、𝐙），代码中为二维张量",
+      "数学表示：𝐀∈ℝ𝑚×𝑛表示𝑚行𝑛列实值矩阵。元素𝑎𝑖𝑗位于第𝑖行第𝑗列：",
+      "形状：(𝑚,𝑛)或𝑚×𝑛，行列数相同的为方阵（square matrix）",
+      "创建：A = torch.arange(20, dtype=torch.float32).reshape(5, 4)",
+      "元素访问：通过行索引𝑖和列索引𝑗，如[𝐀]𝑖𝑗",
+      "转置（transpose）：交换行列，记为𝐀⊤，代码中为A.T，满足(𝐀⊤)⊤=𝐀、𝐀⊤+𝐁⊤=(𝐀+𝐁)⊤",
+      "对称矩阵（symmetric matrix）：方阵中𝐀=𝐀⊤",
+      "同形状张量按元素二元运算结果形状不变",
+      "Hadamard积（Hadamard product）：两矩阵按元素乘法，记为⊙：",
+      "求和：sum()，默认沿所有轴降为标量，可指定轴，如A.sum(dim=0)（沿轴 0 求和）、A.sum(dim=[0, 1])（沿轴 0 和 1 求和）",
+      "平均值：mean()，或总和除以元素总数（A.sum() / A.numel()），可指定轴",
+      "保持轴数：sum(dim=..., keepdims=True)",
+      "累积和：cumsum(dim=...)，不降低维度",
+      "定义：矩阵𝐀∈ℝ𝑛×𝑘与𝐁∈ℝ𝑘×𝑚的积𝐂=𝐀𝐁∈ℝ𝑛×𝑚，元素𝑐𝑖𝑗=𝐚⊤𝑖𝐛𝑗（𝐚⊤𝑖为𝐀第𝑖行，𝐛𝑗为𝐁第𝑗列）",
+      "代码：torch.mm(A, B)",
+      "性质：𝑓(𝛼𝐱)=|𝛼|𝑓(𝐱)；𝑓(𝐱+𝐲)≤𝑓(𝐱)+𝑓(𝐲)；𝑓(𝐱)≥0；∀𝑖,[𝐱]𝑖=0⇔𝑓(𝐱)=0",
+      "𝐿2范数：‖𝐱‖2=√∑𝑛𝑖=1𝑥2𝑖，代码torch.norm(u)",
+      "𝐿1范数：‖𝐱‖1=∑𝑛𝑖=1|𝑥𝑖|，代码torch.abs(u).sum()",
+      "𝐿𝑝范数：‖𝐱‖𝑝=(∑𝑛𝑖=1|𝑥𝑖|𝑝)1/𝑝",
+      "Frobenius 范数（矩阵）：‖𝐗‖𝐹=√∑𝑚𝑖=1∑𝑛𝑗=1𝑥2𝑖𝑗，代码torch.norm(matrix)",
+      "逼近法（method of exhaustion）",
+      "积分学（integral calculus）",
+      "微分学（differential calculus）",
+      "损失函数（loss function）",
+      "拟合模型的任务可分解为两个关键问题：",
+      "优化（optimization）：用模型拟合观测数据的过程",
+      "泛化（generalization）：指导生成有效性超出训练数据集的模型的数学原理与实践智慧",
+      "深度学习中，通常选择对模型参数可微的损失函数。即对于每个参数，当参数发生无穷小量的增减时，能确定损失增减的速率",
+      "设函数𝑓:ℝ→ℝ，其输入和输出均为标量。若𝑓的导数存在，定义为：",
+      "若𝑓′(𝑎)存在，则𝑓在𝑎处可微（differentiable）；若𝑓在某区间内每一点都可微，则该函数在该区间可微。导数𝑓′(𝑥)可解释为𝑓(𝑥)相对于𝑥的瞬时（instantaneous）变化率",
+      "对于𝑦=𝑓(𝑥)（𝑥为自变量，𝑦为因变量），以下导数表示等价：",
+      "其中𝑑𝑑𝑥和𝐷为微分运算符，表示微分操作。常见函数的微分规则：",
+      "设函数𝑓、𝑔均可微，𝐶为常数，微分法则如下：",
+      "常数相乘法则",
+      "加法法则",
+      "乘法法则",
+      "除法法则",
+      "多元函数（multivariate function）",
+      "设𝑦=𝑓(𝑥1,𝑥2,…,𝑥𝑛)为𝑛变量函数，𝑦关于第𝑖个参数𝑥𝑖的偏导数（partial derivative）为：",
+      "计算𝜕𝑦𝜕𝑥𝑖时，可将𝑥1,…,𝑥𝑖−1,𝑥𝑖+1,…,𝑥𝑛视为常数，求𝑦对𝑥𝑖的导数。偏导数的等价表示：",
+      "多元函数对所有变量的偏导数可组成该函数的梯度（gradient）向量。设函数𝑓:ℝ𝑛→ℝ，输入为𝑛维向量𝐱=[𝑥1,𝑥2,…,𝑥𝑛]⊤，输出为标量，则𝑓(𝐱)相对于𝐱的梯度为含𝑛个偏导数的向量：",
+      "无歧义时可简写为∇𝑓(𝐱)",
+      "设𝐱为𝑛维向量，多元函数微分常用规则：",
+      "对任意矩阵𝐗，∇𝐗|𝐗|2𝐹=2𝐗。梯度在深度学习优化算法设计中很有用",
+      "深度学习中的多元函数常为复合（composite）函数，链式法则可用于其微分",
+      "单变量函数场景：若𝑦=𝑓(𝑢)和𝑢=𝑔(𝑥)均可微，则：",
+      "多变量函数场景：设可微函数𝑦依赖变量𝑢1,𝑢2,…,𝑢𝑚，每个可微函数𝑢𝑖依赖变量𝑥1,𝑥2,…,𝑥𝑛（即𝑦是𝑥1,𝑥2，…,𝑥𝑛的函数），则对任意𝑖=1,2,…,𝑛：",
+      "深度学习框架通过自动计算导数（即自动微分）加快求导过程。系统会根据模型构建计算图（computational graph），跟踪数据通过哪些操作组合产生输出，进而通过反向传播（跟踪计算图并填充各参数的偏导数）自动计算梯度",
+      "创建需求导的变量并指定追踪梯度（如x = torch.arange(4.0, requires_grad=True)）",
+      "计算目标值（如y = 2 * torch.dot(x, x)）",
+      "调用反向传播函数（y.backward()）计算梯度，结果存储在变量的grad属性中",
+      "多次计算梯度时，需先用x.grad.zero_()清除之前累积的梯度",
+      "非标量变量调用backward()时，需传入gradient参数（通常为全 1 向量），实际是计算各元素偏导数的和",
+      "示例：y = x * x求导时，可通过y.sum().backward()实现",
+      "使用detach()方法可将变量从计算图中分离，得到的新变量值与原变量相同，但梯度不会反向流经该变量",
+      "示例：u = y.detach()后，计算z = u * x的梯度时，u被视为常数",
+      "机器学习的核心是做出预测。概率是用于描述确定程度的灵活语言，可有效应用于广泛领域",
+      "大数定律（law of large numbers）：随着试验次数增加，事件发生的频率会逐渐接近其真实概率",
+      "抽样（sampling）：从概率分布中抽取样本的过程",
+      "分布（distribution）：对随机变量（random variable）取值概率的分配",
+      "多项分布（multinomial distribution）：为离散选择分配概率的分布",
+      "样本空间（结果空间）：随机试验所有可能结果的集合，记为S",
+      "结果（outcome）：样本空间中的元素",
+      "事件（event）：样本空间的子集，即一组可能的结果",
+      "概率（probability）：将事件映射到实数的函数，满足：",
+      "对任意事件A，𝑃(A)≥0",
+      "整个样本空间的概率为1，即𝑃(S)=1",
+      "随机变量是在随机试验中取值不确定的量",
+      "𝑃(𝑋=𝑎)表示随机变量𝑋取𝑎值的概率；𝑃(𝑋)表示𝑋的分布；𝑃(𝑎)可简化表示随机变量取𝑎的概率",
+      "离散（discrete）随机变量和连续（continuous）随机变量的区别：连续随机变量取特定值的概率为 0，需用密度（density）描述取值可能性，区间内取值概率非零",
+      "联合概率（joint probability）𝑃(𝐴=𝑎,𝐵=𝑏)表示𝐴=𝑎与𝐵=𝑏同时发生的概率",
+      "条件概率（conditional probability）𝑃(𝐵=𝑏∣𝐴=𝑎)表示在𝐴=𝑎发生的条件下𝐵=𝑏发生的概率，定义为𝑃(𝐴=𝑎,𝐵=𝑏)𝑃(𝐴=𝑎)",
+      "根据乘法法则（multiplication rule）𝑃(𝐴,𝐵)=𝑃(𝐵∣𝐴)𝑃(𝐴)=𝑃(𝐴∣𝐵)𝑃(𝐵)，若𝑃(𝐵)>0，则𝑃(𝐴∣𝐵)=𝑃(𝐵∣𝐴)𝑃(𝐴)𝑃(𝐵)。其中𝑃(𝐴,𝐵)为联合分布，𝑃(𝐴∣𝐵)为条件分布",
+      "独立（independence）：若𝑃(𝐵∣𝐴)=𝑃(𝐵)（或𝑃(𝐴∣𝐵)=𝑃(𝐴)，或𝑃(𝐴,𝐵)=𝑃(𝐴)𝑃(𝐵)），则𝐴与𝐵独立，记为𝐴⟂𝐵",
+      "条件独立：给定𝐶时，若𝑃(𝐴,𝐵∣𝐶)=𝑃(𝐴∣𝐶)𝑃(𝐵∣𝐶)，则𝐴与𝐵条件独立，记为𝐴⟂𝐵∣𝐶",
+      "期望（expectation）：随机变量𝑋的期望𝐸[𝑋]=∑𝑥𝑥𝑃(𝑋=𝑥)；函数𝑓(𝑥)的期望𝐸𝑥∼𝑃[𝑓(𝑥)]=∑𝑥𝑓(𝑥)𝑃(𝑥)",
+      "方差：衡量随机变量与期望的偏离程度，Var[𝑋]=𝐸[(𝑋−𝐸[𝑋])2]=𝐸[𝑋2]−𝐸[𝑋]2。其平方根为标准差（standard deviation）",
+      "随机变量函数的方差：Var[𝑓(𝑥)]=𝐸[(𝑓(𝑥)−𝐸[𝑓(𝑥)])2]",
+      "来做第一个留言的人吧！"
+    ],
+    "links": [
+      "/",
+      "/about",
+      "/tags",
+      "mailto:xiongyunhan@outlook.com",
+      "https://github.com/pianfan",
+      "/feed.xml",
+      "#",
+      "#21-数据操作",
+      "#211-入门",
+      "#212-运算符",
+      "#213-广播机制",
+      "#214-索引和切片",
+      "#215-节省内存",
+      "#216-转换为其他-python-对象",
+      "#22-数据预处理",
+      "#221-读取数据集",
+      "#222-处理缺失值",
+      "#223-转换为张量格式",
+      "#23-线性代数",
+      "#231-标量",
+      "#232-向量",
+      "#233-矩阵",
+      "#234-张量",
+      "#235-张量算法的基本性质",
+      "#236-降维",
+      "#237-点积dot-product",
+      "#238-矩阵-向量积",
+      "#239-矩阵-矩阵乘法",
+      "#2310-范数",
+      "#24-微积分",
+      "#241-导数和微分",
+      "#242-偏导数",
+      "#243-梯度",
+      "#244-链式法则",
+      "#25-自动微分",
+      "#251-基本流程",
+      "#252-非标量变量的反向传播",
+      "#253-分离计算",
+      "#26-概率",
+      "#261-基本概率论",
+      "#262-处理多个随机变量",
+      "#263-期望和方差",
+      "https://pianfan.github.io/tags#AI",
+      "https://pianfan.github.io/tags#notes",
+      "https://github.com/pianfan/pianfan.github.io/issues/28",
+      "https://guides.github.com/features/mastering-markdown/",
+      "https://pianfan.github.io/d2l_introduction/",
+      "https://pianfan.github.io/d2l_linear-networks/"
+    ],
+    "time": "2025-11-05 14:46:19",
+    "tables": []
+  },
+  {
     "url": "https://blog.csdn.net/BAZHUAYUdata/article/details/100779439",
     "title": "84个常用的数据源网站分享！（保持更新，建议收藏）_东方影库-CSDN博客",
     "paragraphs": [
@@ -122,7 +617,87 @@
       "imdb.cn/",
       "IMDb创建于1990年10月17日，是一个关于电影演员、电影、电视节目、电视明星和电影制作的在线数据库。包括了影片的众多信息、演员、片长、内容介绍、分级、评论等。截至2018年6月21日，IMDb共收录了4,734,693部作品资料以及8,702,001名人物资料。",
       "36、豆瓣",
-      "douban.com/"
+      "douban.com/",
+      "豆瓣收录了各种电影、书籍、音乐等丰富的文化娱乐产品信息，并且成为国内主流的分享与评论社区，拥有海量的评论舆情数据。",
+      "自媒体",
+      "37、新榜",
+      "newrank.cn/",
+      "国内微信公众号内容数据价值评估的第三方机构，新榜收录了超过1000万个微信公众号，截至2018年4月，对超过55万个有影响力的优秀账号实行每日固定监测，据此发布微信公众号影响力排行榜（日、周、月、年），以及超过20个细分内容类别的行业榜和超过30个省市区的地域榜。",
+      "38、微博",
+      "weibo.com/",
+      "这个估计就不用多介绍啦，微博提供社会舆论热点、热搜榜单，可以挖掘新闻资讯实时热点、用户舆情、用户画像。",
+      "39、清博大数据",
+      "gsdata.cn/",
+      "清博指数(前称新媒体指数)、提供各类新媒体数据、榜单、分析报告、舆情监测、品牌推广、精准营销等服务。",
+      "40、搜狗微信",
+      "weixin.sogou.com/",
+      "搜狗微信是搜狗在2014年6月9日推出的一款针对微信公众平台而设立的。“微信搜索”支持搜索微信公众号和微信文章，可以通过关键词搜索相关的微信公众号，或者是微信公众号推送的文章。",
+      "41、新浪舆情通",
+      "yqt365.com/logon.action",
+      "舆情通以中文互联网大数据及新浪微博的独家官方数据为基础，7*24小时不间断采集新闻、报刊、政务、外媒、微博、微信、博客、论坛、视频、网站、客户端等全网11大信息来源，每天采集超过9000万条数据。",
+      "42、星斗短视频",
+      "xingdouio.com/#",
+      "专注短视频精细化运营，支持抖音、快手等短视频平台，收录播主数量：5,243,513，提供找创意、找素材、找竞品服务。",
+      "企业征信",
+      "43、企查查",
+      "qichacha.com/",
+      "企查查是一款企业信用查询工具，旨在为用户提供快速查询企业工商信息、法院判决信息、关联企业信息、法律诉讼、失信信息、被执行人信息、知识产权信息、公司新闻、企业年报等服务。平台立足于企业征信的相关信息整合，经过深度学习、特征抽取和使用图构建技术，为用户提供全面、可靠、透明的数据信息。",
+      "44、天眼查",
+      "tianyancha.com/",
+      "天眼查基于政府公开数据，结合独家图数据库技术和世界领先的计算机语言学习能力，在线提供全国1.8亿+家社会实体、90余种数据维度的信息，涵盖企业背景、实际控制人、对外投资、融资历史、股权结构、法律诉讼等角度，还可以实时监控所关注的企业变更。",
+      "45、企信宝",
+      "qixin.com/",
+      "启信宝为用户提供快速查询企业工商信息、法院判决信息、关联企业信息、司法拍卖信息、失信信息、被执行人信息、知识产权信息、公司新闻等服务。",
+      "电商零售",
+      "46、淘宝",
+      "taobao.com/",
+      "人人必备的剁手工具，我们可以在上面查看到几乎所有商品的各类数据，如价格、销量、人气、商品详情、图片、折扣、用户评价等各类数据。可以帮我们比价、定价、选品、获取用户反馈、销量分析等等。",
+      "47、天猫",
+      "tmall.com/",
+      "和淘宝一样，天猫则拥有更多大场品牌的入驻。",
+      "48、京东",
+      "jd.com/",
+      "国内电商三巨头之一，同样能获取大量商品数据。",
+      "49、当当网",
+      "dangdang.com/",
+      "国内最早的电商图书平台之一，后续也逐渐扩大商品覆盖范围，极丰富商品供应种类。",
+      "50、亚马逊",
+      "amazon.cn/",
+      "美国最大的一家网络电子商务公司，成立于1995年，为客户提供数百万种独特的全新、翻新及二手商品，如图书、影视、音乐和游戏、数码下载、电子和电脑、家居园艺用品、玩具、婴幼儿用品、食品、服饰、鞋类和珠宝、健康和个人护理用品、体育及户外用品、玩具、汽车及工业产品等。",
+      "51、1688批发采购",
+      "re.1688.com/",
+      "1688（阿里巴巴）是中国领先的小企业国内贸易电子商务平台。目前1688已覆盖原材料、工业品、服装服饰、家居百货、小商品等16个行业大类，上面有所有批发采购的商品数据、价格数据、图片等信息。",
+      "汽车产业",
+      "52、汽车之家",
+      "autohome.com.cn/",
+      "汽车之家成立于2005年6月，是全球访问量最大的汽车网站。汽车之家为消费者提供选车、买车、用车、换车等所有环节的一站式服务，上面涵盖几乎所有品牌、类型的汽车数据、口碑数据、测评数据。",
+      "53、瓜子网",
+      "https://www.guazi.com/",
+      "瓜子二手车实时在售个人车源量超过12万台，覆盖全国28个省份，上面有大量二手车的真实数据。",
+      "54、人人车",
+      "renrenche.com/",
+      "国内最大的二手车销售平台之一，上面有大量二手车的真实数据。",
+      "综合分类",
+      "国内领先的生活分类信息网站，上面每日发布海量生活信息供用户免费查询。",
+      "55、58同城",
+      "https://www.58.com",
+      "56、赶集网",
+      "http://www.ganji.com",
+      "房地产",
+      "全国新房、二手房楼盘信息、租房信息、价格走势等数据。",
+      "57、房多多",
+      "https://www.fangdd.com/",
+      "58、链家",
+      "https://www.lianjia.com/",
+      "59、安居客",
+      "anjuke.com/",
+      "人才招聘",
+      "全国岗位信息、薪酬信息、公司背景等数据。",
+      "60、前程无忧",
+      "51job.com/",
+      "61、智联招聘",
+      "zhaopin.com/",
+      "62、Boss直聘"
     ],
     "links": [
       "https://kunyu.csdn.net?p=536&spm=3001.5152&a=1076764&c=3499027&k=&d=1&t=3&dest=https%3A%2F%2Fmall.csdn.net%2Fvip%3Futm_source%3D251111_vip_bd%26utm_medium%3Dad.536&timestamp=1762155064703&signature=b98ac946f9ac9db07129c823076134e8bde1fbe9",
@@ -241,19 +816,19 @@
       "https://luoyong.blog.csdn.net/article/details/142471034",
       "https://blog.csdn.net/weixin_51173317/article/details/124565555",
       "https://blog.csdn.net/weixin_51173317",
-      "https://blog.csdn.net/d3158/article/details/2910715",
       "https://blog.csdn.net/seanyang_/article/details/127044343",
+      "https://blog.csdn.net/weixin_43936132/article/details/117848741",
       "https://blog.csdn.net/qq_45931528/article/details/120842441",
       "https://blog.csdn.net/qq_45931528",
       "https://blog.csdn.net/weixin_42309599/article/details/150465160",
       "https://blog.csdn.net/weixin_42309599",
-      "https://blog.csdn.net/weixin_43936132/article/details/117848741",
+      "https://blog.csdn.net/d3158/article/details/2910715",
       "https://blog.csdn.net/royal_coffee/article/details/2414385",
       "https://blog.csdn.net/qq_54207340/article/details/120855520",
       "https://blog.csdn.net/qq_54207340",
       "https://devpress.csdn.net/v1/article/detail/104645234",
       "https://blog.csdn.net/zw0Pi8G5C1x",
-      "https://blog.csdn.net/a408774953/article/details/104274986",
+      "https://blog.csdn.net/hunter___/article/details/108579695",
       "https://devpress.csdn.net/v1/article/detail/135457499",
       "https://blog.csdn.net/genli2774",
       "https://download.csdn.net/download/m0_64349423/91430290",
@@ -326,25 +901,8 @@
       "https://blog.csdn.net/bazhuayudata/category_8744983.html",
       "https://blog.csdn.net/bazhuayudata/category_8875157.html"
     ],
-    "time": "2025-11-05 10:08:27"
-  },
-  {
-    "url": "https://expired.badssl.com/",
-    "title": "隐私设置错误",
-    "paragraphs": [
-      "攻击者可能会试图从expired.badssl.com窃取您的信息（例如：密码、消息或信用卡信息）。详细了解此警告",
-      "Subject:*.badssl.com",
-      "Issuer:COMODO RSA Domain Validation Secure Server CA",
-      "Expires on:2015年4月13日",
-      "Current date:2025年11月5日",
-      "PEM encoded chain:-----BEGIN CERTIFICATE-----MIIFSzCCBDOgAwIBAgIQSueVSfqavj8QDxekeOFpCTANBgkqhkiG9w0BAQsFADCBkDELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxNjA0BgNVBAMTLUNPTU9ETyBSU0EgRG9tYWluIFZhbGlkYXRpb24gU2VjdXJlIFNlcnZlciBDQTAeFw0xNTA0MDkwMDAwMDBaFw0xNTA0MTIyMzU5NTlaMFkxITAfBgNVBAsTGERvbWFpbiBDb250cm9sIFZhbGlkYXRlZDEdMBsGA1UECxMUUG9zaXRpdmVTU0wgV2lsZGNhcmQxFTATBgNVBAMUDCouYmFkc3NsLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMIE7PiM7gTCs9hQ1XBYzJMY61yoaEmwIrX5lZ6xKyx2PmzAS2BMTOqytMAPgLaw+XLJhgL5XEFdEyt/ccRLvOmULlA3pmccYYz2QULFRtMWhyefdOsKnRFSJiFzbIRMeVXk0WvoBj1IFVKtsyjbqv9u/2CVSndrOfEk0TG23U3AxPxTuW1CrbV8/q71FdIzSOciccfCFHpsKOo3St/qbLVytH5aohbcabFXRNsKEqveww9HdFxBIuGa+RuT5q0iBikusbpJHAwnnqP7i/dAcgCskgjZjFeEU4EFy+b+a1SYQCeFxxC7c3DvaRhBB0VVfPlkPz0sw6l865MaTIbRyoUCAwEAAaOCAdUwggHRMB8GA1UdIwQYMBaAFJCvajqUWgvYkOoSVnPfQ7Q6KNrnMB0GA1UdDgQWBBSd7sF7gQs6R2lxGH0RN5O8pRs/+zAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwTwYDVR0gBEgwRjA6BgsrBgEEAbIxAQICBzArMCkGCCsGAQUFBwIBFh1odHRwczovL3NlY3VyZS5jb21vZG8uY29tL0NQUzAIBgZngQwBAgEwVAYDVR0fBE0wSzBJoEegRYZDaHR0cDovL2NybC5jb21vZG9jYS5jb20vQ09NT0RPUlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNybDCBhQYIKwYBBQUHAQEEeTB3ME8GCCsGAQUFBzAChkNodHRwOi8vY3J0LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FEb21haW5WYWxpZGF0aW9uU2VjdXJlU2VydmVyQ0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wIwYDVR0RBBwwGoIMKi5iYWRzc2wuY29tggpiYWRzc2wuY29tMA0GCSqGSIb3DQEBCwUAA4IBAQBqevHa/wMHcnjFZqFPRkMOXxQhjHUa6zbgH6QQFezaMyV8O7UKxwE4PSf9WNnM6i1pOXy+l+8L1gtY54x/v7NMHfO3kICmNnwUW+wHLQI+G1tjWxWrAPofOxkt3+IjEBEHfnJ/4r+3ABuYLyw/zoWaJ4wQIghBK4o+gk783SHGVnRwpDTysUCeK1iiWQ8dSO/rET7BSp68ZVVtxqPv1dSWzfGuJ/ekVxQ8lEEFeouhN0fX9X3c+s5vMaKwjOrMEpsi8TRwz311SotoKQwe6Zaoz7ASH1wq7mcvf71z81oBIgxw+s1F73hczg36TuHvzmWfRwxPuzZEaFZcVlmtqoq8-----END CERTIFICATE----------BEGIN CERTIFICATE-----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-----END CERTIFICATE----------BEGIN CERTIFICATE-----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-----END CERTIFICATE-----",
-      "此服务器无法证明其所在网域是expired.badssl.com；其安全证书已在 3,860 天前过期。出现此问题的原因可能是配置有误，或是有攻击者拦截您的连接。计算机的时钟目前已设为 2025年11月5日星期三，请问是否正确？如果不正确，请更正系统的时钟，然后刷新此页面。",
-      "继续前往expired.badssl.com（不安全）"
-    ],
-    "links": [
-      "#"
-    ],
-    "time": "2025-11-05 10:06:53"
+    "time": "2025-11-05 14:53:28",
+    "tables": []
   },
   {
     "url": "https://www.python.org/",
