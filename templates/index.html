@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>智能分页爬虫 + 历史记录</title>
+<style>
+body { font-family: sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+#sidebar {
+    width: 280px; background: #222; color: #eee; padding: 10px; overflow-y: auto;
+}
+#sidebar h3 { border-bottom: 1px solid #444; padding-bottom: 5px; margin-top: 0; }
+.history-item {
+    padding: 8px; margin: 5px 0;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+}
+.history-item:hover { background: #333; }
+button.small { font-size: 12px; margin-right: 5px; }
+#main { flex: 1; padding: 20px; overflow-y: auto; background: #fafafa; }
+#logs { background: #111; color: #0f0; padding: 10px; height: 220px; overflow-y: auto; white-space: pre-wrap; }
+#content, #links { border: 1px solid #ccc; padding: 10px; background: #fff; }
+#content { min-height: 250px; }
+#links { min-height: 150px; }
+.pagination { margin-top: 10px; display: flex; align-items: center; gap: 10px; }
+.pagination button { padding: 5px 10px; }
+p { text-indent: 2em; line-height: 1.6; }
+a { color: #0077cc; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.search-box { width: 100%; padding: 5px; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+    <!-- 左侧历史记录区 -->
+    <div id="sidebar">
+        <h3>📜 历史记录</h3>
+        <input id="search" class="search-box" type="text" placeholder="🔍 搜索标题或网址...">
+        <div id="history-list">加载中...</div>
+    </div>
+
+    <!-- 右侧爬取区 -->
+    <div id="main">
+        <h2>🌍 智能分页网页爬虫</h2>
+        <input id="url" type="text" placeholder="请输入网址..." size="60">
+        <button id="start">开始爬取</button>
+
+        <h3>实时日志：</h3>
+        <div id="logs"></div>
+
+        <h3>正文分页展示：</h3>
+        <h4 id="title"></h4>
+        <div id="content"></div>
+        <div class="pagination" id="text-pagination" style="display:none;">
+            <button id="prev-text">上一页</button>
+            <span id="text-pageinfo"></span>
+            <button id="next-text">下一页</button>
+        </div>
+
+        <h3 id="link-title" style="display:none;">🔗 链接分页展示：</h3>
+        <div id="links"></div>
+        <div class="pagination" id="link-pagination" style="display:none;">
+            <button id="prev-link">上一页</button>
+            <span id="link-pageinfo"></span>
+            <button id="next-link">下一页</button>
+        </div>
+    </div>
+
+<script>
+// ===============================
+// 一、分页显示逻辑
+// ===============================
+let paragraphs = [];
+let allLinks = [];
+let currentTextPage = 1;
+const textPerPage = 10;
+let currentLinkPage = 1;
+const linksPerPage = 10;
+
+function showTextPage(page) {
+    const start = (page - 1) * textPerPage;
+    const list = paragraphs.slice(start, start + textPerPage);
+    document.getElementById('content').innerHTML = list.map(p => `<p>${p}</p>`).join('');
+    document.getElementById('text-pageinfo').innerText = `第 ${page} / ${Math.ceil(paragraphs.length / textPerPage)} 页`;
+    document.getElementById('prev-text').disabled = page <= 1;
+    document.getElementById('next-text').disabled = start + textPerPage >= paragraphs.length;
+}
+function showLinkPage(page) {
+    const start = (page - 1) * linksPerPage;
+    const links = allLinks.slice(start, start + linksPerPage).filter(l => l && l.startsWith('http'));
+    document.getElementById('links').innerHTML = links.length > 0
+      ? links.map(l => `<a href="${l}" target="_blank">${l}</a>`).join('<br>')
+      : "<p>无更多链接。</p>";
+    document.getElementById('link-pageinfo').innerText = `第 ${page} / ${Math.ceil(allLinks.length / linksPerPage)} 页`;
+    document.getElementById('prev-link').disabled = page <= 1;
+    document.getElementById('next-link').disabled = start + linksPerPage >= allLinks.length;
+}
+document.getElementById('prev-text').onclick = () => { if(currentTextPage>1){currentTextPage--;showTextPage(currentTextPage);} };
+document.getElementById('next-text').onclick = () => { if(currentTextPage*textPerPage<paragraphs.length){currentTextPage++;showTextPage(currentTextPage);} };
+document.getElementById('prev-link').onclick = () => { if(currentLinkPage>1){currentLinkPage--;showLinkPage(currentLinkPage);} };
+document.getElementById('next-link').onclick = () => { if(currentLinkPage*linksPerPage<allLinks.length){currentLinkPage++;showLinkPage(currentLinkPage);} };
+
+// ===============================
+// 二、核心爬取逻辑
+// ===============================
+function startCrawl(url = null) {
+    if (!url) url = document.getElementById("url").value.trim();
+    if (!url) return alert("请输入 URL！");
+
+    // 重置
+    document.getElementById("logs").innerText = "> 已启动爬取任务...\n";
+    document.getElementById("content").innerHTML = "";
+    document.getElementById("title").innerText = "";
+    document.getElementById("link-title").style.display = "none";
+    document.getElementById("links").innerHTML = "";
+    document.getElementById("text-pagination").style.display = "none";
+    document.getElementById("link-pagination").style.display = "none";
+
+    paragraphs = [];
+    allLinks = [];
+    currentTextPage = 1; currentLinkPage = 1;
+
+    fetch("/stream", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({url})
+    }).then(r => {
+        const reader = r.body.getReader();
+        const decoder = new TextDecoder();
+        (function read() {
+            reader.read().then(({done, value}) => {
+                if (done) {
+                    document.getElementById("logs").innerText += "\n✅ 爬取完成。\n";
+                    loadHistory(); // 爬完后刷新历史
+                    return;
+                }
+                const txt = decoder.decode(value);
+                txt.split("\n\n").forEach(line => {
+                    if (line.startsWith("data: ")) {
+                        try {
+                            const msg = JSON.parse(line.replace("data: ", ""));
+                            if (msg.log) document.getElementById("logs").innerText += msg.log + "\n";
+                            if (msg.result) {
+                                document.getElementById("title").innerText = msg.result.title;
+                                paragraphs = msg.result.paragraphs;
+                                allLinks = msg.result.links;
+                                if (paragraphs.length > 0) {
+                                    document.getElementById("text-pagination").style.display = "flex";
+                                    showTextPage(1);
+                                }
+                                if (allLinks.length > 0) {
+                                    document.getElementById("link-title").style.display = "block";
+                                    document.getElementById("link-pagination").style.display = "flex";
+                                    showLinkPage(1);
+                                }
+                            }
+                        } catch(e){}
+                    }
+                });
+                read();
+            });
+        })();
+    });
+}
+document.getElementById('start').onclick = () => startCrawl();
+
+// ===============================
+// 三、历史记录逻辑
+// ===============================
+async function loadHistory(query="") {
+    const res = await fetch("/history");
+    const data = await res.json();
+    const list = document.getElementById("history-list");
+
+    const filtered = query
+        ? data.filter(d => d.title.includes(query) || d.url.includes(query))
+        : data;
+
+    if (filtered.length === 0) {
+        list.innerHTML = "<p>暂无历史记录</p>";
+        return;
+    }
+
+    list.innerHTML = filtered.map((item, idx) => `
+        <div class="history-item" onclick="loadHistoryItem(${idx})">
+            <b>${item.title || '无标题'}</b><br>
+            <small>${item.time}</small><br>
+            <small style="color:#49f">${item.url}</small><br>
+            <button class="small" onclick="event.stopPropagation();startCrawl('${item.url}')">🔁 重新爬取</button>
+            <button class="small" onclick="event.stopPropagation();deleteHistory(${idx})">❌ 删除</button>
+            <button class="small" onclick="event.stopPropagation();downloadHistory(${idx})">💾 导出</button>
+        </div>`).join('');
+}
+async function loadHistoryItem(idx) {
+    const res = await fetch(`/history/${idx}`);
+    const r = await res.json();
+    document.getElementById("title").innerText = r.title;
+    paragraphs = r.paragraphs || [];
+    allLinks = r.links || [];
+    if (paragraphs.length > 0) {
+        document.getElementById("text-pagination").style.display = "flex";
+        showTextPage(1);
+    }
+    if (allLinks.length > 0) {
+        document.getElementById("link-title").style.display = "block";
+        document.getElementById("link-pagination").style.display = "flex";
+        showLinkPage(1);
+    }
+}
+
+async function deleteHistory(idx) {
+    if (!confirm("确认删除该历史记录？")) return;
+    await fetch(`/history/${idx}`, {method:"DELETE"});
+    loadHistory();
+}
+function downloadHistory(idx) {
+    window.open(`/history/export/${idx}`, "_blank");
+}
+document.getElementById("search").oninput = (e) => loadHistory(e.target.value.trim());
+loadHistory();
+</script>
+</body>
+</html>
